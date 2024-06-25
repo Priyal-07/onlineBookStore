@@ -1,0 +1,56 @@
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<title>Main Page</title>
+	<link rel="stylesheet" type="text/css" media="all" href="../css/mycss.css" th:href="@{/css/mycss.css}" />
+
+</head>
+
+<body>
+
+	<div class="banner">
+		<div>
+			<h1>Discover your next adventure here!</h1>
+		</div>
+
+		<div class="banner-buttons">
+			<a th:href="@{/secure/viewCart}" sec:authorize="hasAuthority('USER')"class="btn btn-primary">ShoppingCart</a>
+			
+			<a th:href="@{/addBook}" sec:authorize="hasAuthority('ADMIN')">Add Book </a>
+
+			<form method="post" th:action="@{/logout}" class="logout-button">
+				<input type="submit" value="Logout" class="btn btn-logout" />
+			</form>
+		</div>
+
+	</div>
+
+	<div th:if="${bookList != null AND bookList != ''}" class="book-container">
+		<div th:each="b : ${bookList}" class="book-card">
+			<h2 th:text="${b.title}" class="book-title"></h2>
+			<p class="book-author" th:text="${b.author}"></p>
+			<p class="book-price" th:text="'$' + ${b.price}"></p>
+			<a th:href="@{/secure/details/}+${b.isbn}" class="btn-details">More Details</a>
+			<form sec:authorize="hasAuthority('USER')" method="post" th:action="@{/secure/cart/}+${b.isbn}"
+				class="add-to-cart">
+				<input type="submit" value="Add to Cart" class="btn btn-success" onclick="displayMessage()" />
+			</form>
+			<div sec:authorize="hasAuthority('ADMIN')" class="admin-actions">
+				<a th:href="@{/removeBook/}+${b.isbn}" class="btn-remove-book">Remove</a>
+			</div>
+
+
+		</div>
+	</div>
+
+
+	<script th:inline="javascript">
+		function displayMessage() {
+			alert('Book added to cart successfully');
+		}
+
+
+	</script>
+</body>
+
+</html>

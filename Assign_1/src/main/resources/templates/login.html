@@ -1,0 +1,31 @@
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<title>Signin</title>
+	<link rel="stylesheet" type="text/css" media="all" href="css/mycss.css" th:href="@{/css/mycss.css}" />
+</head>
+
+<body class="signup">
+	<form method="post" action="" th:action="@{/login}" th:object="${user}" class="signup-form">
+		<h2>Sign in</h2>
+		<p>Please sign with your crediantials to continue</p>
+		Username: <input type="text" name="username" /><br>
+		Password: <input type="text" name="password" /><br>
+		<input type="submit" value="Sign in" />
+		<p>Don't have an account? <a th:href="@{/signup}">Sign up</a></p>
+		
+		<div th:if="${param.error}" class="error">
+			<div class="error">
+				Invalid credentials
+			</div>
+		</div>
+		<div th:if="${param.logout}" class="error">
+			<div class="success">
+				You have been logged out
+			</div>
+		</div>
+	</form>
+
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<title>Shopping Cart</title>
+	<link rel="stylesheet" type="text/css" media="all" href="../css/mycss.css" th:href="@{/css/mycss.css}" />
+	<style>
+
+	</style>
+</head>
+
+<body>
+
+	<div class="banner">
+		<div>
+			<h2>Shopping cart</h2>
+		</div>
+		<div class="banner-buttons">
+			<a th:href="@{/secure}">Home Page</a>
+			</form>
+			<form method="post" th:action="@{/logout}" class="logout-button">
+				<input type="submit" value="Logout" class="btn btn-logout" />
+			</form>
+		</div>
+
+	</div>
+
+	<div th:if="${bookList != null AND bookList != ''}">
+		<div th:each="b : ${bookList}" class="cart-item">
+			<div class="item-details">
+				<div>
+					<p>Title: <span th:text="${b.title}"></span></p>
+					<p>Author: <span th:text="${b.author}"></span></p>
+					<p>Price: $<span th:text="${b.price}"></span></p>
+					<a th:href="@{/secure/details/}+${b.isbn}" class="details">More Details</a>
+				</div>
+				<div>
+					<a th:href="@{/deleteBook/}+${b.isbn}" class="remove-btn">Remove</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="total-price">
+		<p>Total Price: $<span th:text="${totalPrice}" id="num"></span></p>
+	</div>
+
+	<form method="post" th:action="@{/secure/checkout}">
+		<input type="submit" value="Proceed to Checkout" class="checkout-button"/>
+	</form>
+
+	<script>
+		let numElement = document.getElementById("num");
+		let numericValue = parseFloat(numElement.textContent);
+		let formattedValue = numericValue.toFixed(2);
+		numElement.textContent = formattedValue;
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Add Book</title>
+	<link rel="stylesheet" type="text/css" media="all" href="../css/mycss.css" th:href="@{/css/mycss.css}" />
+
+
+</head>
+
+<body class="addBook">
+
+	<div class="banner">
+		<div>
+			<h1>Add Book</h1>
+		</div>
+
+		<div class="banner-buttons">
+			<a th:href="@{/secure}">Home Page</a>
+			<form method="post" th:action="@{/logout}" class="logout-button">
+				<input type="submit" value="Logout" class="btn btn-logout" />
+			</form>
+		</div>
+
+	</div>
+	<div class="addBook-container">
+
+		<form class="book-form" method="post" th:action="@{/addBookToList}" th:object="${book}">
+			<div class="form-group">
+				<label for="title">Title:</label>
+				<input type="text" id="title" class="form-control" th:field="*{title}" />
+			</div>
+			<div class="form-group">
+				<label for="author">Author:</label>
+				<input type="text" id="author" class="form-control" th:field="*{author}" />
+			</div>
+			<div class="form-group">
+				<label for="isbn">ISBN:</label>
+				<input type="text" id="isbn" class="form-control" th:field="*{isbn}" />
+			</div>
+			<div class="form-group">
+				<label for="price">Price:</label>
+				<input type="number" id="price" class="form-control" th:field="*{price}" />
+			</div>
+			<div class="form-group">
+				<label for="description">Description:</label>
+				<input type="text" id="description" class="form-control" th:field="*{description}" />
+			</div>
+			<div class="form-group">
+				<label for="summary">Summary:</label>
+				<input type="text" id="summary" class="form-control" th:field="*{summary}" />
+			</div>
+			<input type="submit" value="Add Book" class="form-btn-submit" />
+		</form>
+	</div>
+</body>
+
+</html>

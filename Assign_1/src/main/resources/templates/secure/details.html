@@ -1,0 +1,49 @@
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<title>Book Details</title>
+	<link rel="stylesheet" type="text/css" media="all" href="../css/mycss.css" th:href="@{/css/mycss.css}" />
+</head>
+
+<body>
+	<div class="banner">
+		<div></div>
+		<div class="banner-buttons">
+			<a th:href="@{/secure}">Home Page</a>
+			<a sec:authorize="hasAuthority('USER')" th:href="@{/secure/viewCart}" class="btn btn-primary">Shopping Cart</a>
+			</form>
+			<form method="post" th:action="@{/logout}" class="logout-button">
+				<input type="submit" value="Logout" class="btn btn-logout" />
+			</form>
+		</div>
+
+	</div>
+
+
+	  <div class="container">
+        <div class="book-details-box">
+            <div class="title-and-price">
+                <h2 th:text="${book.title}"></h2>
+                <p><span th:text="'$' + ${book.price}" class="bookprice"></span></p>
+            </div>
+            <p><strong>Author:</strong> <span th:text="${book.author}"></span></p>
+            <p><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></p>
+            <p><strong>Description:</strong> <span th:text="${book.description}"></span></p>
+            <p><strong>Summary:</strong> <span th:text="${book.summary}"></span></p>
+
+            <div class="add-to-cart" sec:authorize="hasAuthority('USER')">
+                <form class="add" method="post" th:action="@{/secure/cart/}+${book.isbn}">
+                    <input type="submit" value="Add to Cart" class="btn btn-success" onclick="displayMessage()" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+	<script th:inline="javascript">
+		function displayMessage() {
+			alert('Book added to cart successfully');
+		}
+	</script>
+</body>
+
+</html>
